@@ -30,7 +30,14 @@ namespace MemTraceTool
         string dir = Path.GetDirectoryName(typeof(MainWindow).Assembly.Location);
         string defaults = Path.Combine(dir, @"DefaultOptions.json");
 
-        m_Options = Options.LoadFromFile(defaults);
+        if (File.Exists(defaults))
+        {
+            m_Options = Options.LoadFromFile(defaults);
+        }
+        else
+        {
+            m_Options = new Options();
+        }
 
         // Show options to allow user to set directory.
         using (var dlg = new OptionsDialog(m_Options))
