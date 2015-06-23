@@ -47,7 +47,7 @@ struct MemTraceInitObject
 {
   MemTraceInitObject()
   {
-    MemTrace::InitFile("memtrace.tmp");
+    MemTrace::InitFile("memtrace.mtraceraw");
   }
 
   ~MemTraceInitObject()
@@ -56,7 +56,17 @@ struct MemTraceInitObject
   }
 };
 
+#if defined(_MSC_VER)
+
+#pragma warning(disable:4074)
+#pragma init_seg(compiler)
+MemTraceInitObject g_MemTraceInit;
+
+#else
+
 MemTraceInitObject __attribute__((init_priority(101))) g_MemTraceInit;
+
+#endif
 
 #elif defined(__ORBIS__)
 // Example startup handler for Orbis. Checks for -memtrace <ip> on the command line.
