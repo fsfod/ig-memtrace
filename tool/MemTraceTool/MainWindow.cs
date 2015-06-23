@@ -113,7 +113,7 @@ namespace MemTraceTool
       m_TraceList.SetObjects(m_TraceItems);
     }
 
-    object ITraceFileHandler.OnRecordingStarted(string filename, TraceMeta meta, TraceRecorder recorder)
+    object ITraceFileHandler.OnRecordingStarted(string filename, TraceMeta meta, TraceConverter recorder)
     {
       var item = new TraceListItem(filename, meta, recorder);
       this.Invoke((Action)delegate()
@@ -203,7 +203,31 @@ namespace MemTraceTool
             }
           }
         }
+      }
 
+
+      foreach (var name in Directory.GetFiles(m_Options.TraceDirectory, "*.mtraceraw", SearchOption.TopDirectoryOnly))
+      {
+
+        try
+        {
+          var item = new TraceListItem(name, new TraceMeta(), null);
+
+          m_TraceItems.Add(item);
+        }
+        catch (Exception ex)
+        {
+          if (DialogResult.Yes == MessageBox.Show(this, "Failed to open " + name + "\n\n" + ex.Message + "\n\nDelete it?", "Error", MessageBoxButtons.YesNo))
+          {
+            try
+            {
+              File.Delete(name);
+            }
+            catch (IOException)
+            {
+            }
+          }
+        }
       }
 
       m_TraceList.SetObjects(m_TraceItems);
@@ -230,6 +254,7 @@ namespace MemTraceTool
       m_ResolveSymbolsButton.Enabled = item != null && item.Status == TraceStatus.Ready;
       m_SearchButton.Enabled = item != null && item.Status == TraceStatus.Ready;
       m_DeltaButton.Enabled = item != null && item.Status == TraceStatus.Ready;
+      toolStripButton1.Enabled = item != null && item.FileName.EndsWith(".mtraceraw");
     }
 
     private void ResolveSymbolsButton_Click(object sender, EventArgs e)
@@ -294,6 +319,22 @@ namespace MemTraceTool
       var o = (TraceListItem)m_TraceList.SelectedObject;
       form.SetWarnings(o.Warnings);
       form.Show();
+    }
+
+    private void ConvertTrace_Click(object sender, EventArgs e)
+    {
+      var o = (TraceListItem)m_TraceList.SelectedObject;
+
+      if (o == null)
+      {
+        return;
+      }
+
+      var outputpath = m_Options.TraceDirectory + Path.GetFileNameWithoutExtension(o.FileName) + ".mtrace";
+
+      o.Recorder = new TraceDumpConverter(this, o.FileName, outputpath);
+      //o.Meta = new TraceMeta();
+     // o.Status = TraceStatus.Recording;
     }
   }
 }

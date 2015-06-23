@@ -90,7 +90,7 @@ namespace MemTrace
     /// </summary>
     public long WireSizeBytes { get; internal set; }
 
-    internal TraceMeta()
+    public TraceMeta()
     {
       Status = TraceStatus.Ready;
       Symbols = new List<ulong>();

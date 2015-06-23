@@ -11,7 +11,7 @@ namespace MemTraceTool
   {
     private string m_FileName;
     public TraceMeta Meta { get; internal set; }
-    public TraceRecorder Recorder { get; internal set; }
+    public TraceConverter Recorder { get; internal set; }
 
     public string FileName { get { return m_FileName; } set { m_FileName = value; } }
     public string SourceMachine { get { return Meta.SourceMachine; } }
@@ -24,7 +24,7 @@ namespace MemTraceTool
     public string ExecutableName { get { return Meta.ExecutableName; } }
     public int WarningCount { get { return Meta.WarningCount; } }
 
-    internal TraceListItem(string fn, TraceMeta meta, TraceRecorder recorder)
+    internal TraceListItem(string fn, TraceMeta meta, TraceConverter recorder)
     {
       m_FileName = fn;
       Meta = meta;

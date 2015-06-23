@@ -56,6 +56,7 @@
       this.m_StopRecordingMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.m_AddUserTraceMarkMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.m_ShowWarningsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
       ((System.ComponentModel.ISupportInitialize)(this.m_TraceList)).BeginInit();
       this.m_MenuStrip.SuspendLayout();
       this.toolStrip1.SuspendLayout();
@@ -245,7 +246,8 @@
             this.m_HeapViewButton,
             this.m_SearchButton,
             this.m_DeltaButton,
-            this.m_ResolveSymbolsButton});
+            this.m_ResolveSymbolsButton,
+            this.toolStripButton1});
       this.toolStrip1.Location = new System.Drawing.Point(0, 24);
       this.toolStrip1.Name = "toolStrip1";
       this.toolStrip1.Size = new System.Drawing.Size(951, 25);
@@ -304,7 +306,7 @@
             this.m_AddUserTraceMarkMenuItem,
             this.m_ShowWarningsMenuItem});
       this.m_NodeContextMenu.Name = "m_NodeContextMenu";
-      this.m_NodeContextMenu.Size = new System.Drawing.Size(185, 92);
+      this.m_NodeContextMenu.Size = new System.Drawing.Size(185, 70);
       // 
       // m_StopRecordingMenuItem
       // 
@@ -326,6 +328,16 @@
       this.m_ShowWarningsMenuItem.Size = new System.Drawing.Size(184, 22);
       this.m_ShowWarningsMenuItem.Text = "Show Warnings";
       this.m_ShowWarningsMenuItem.Click += new System.EventHandler(this.ShowWarningsMenuItem_Click);
+      // 
+      // toolStripButton1
+      // 
+      this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+      this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+      this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.toolStripButton1.Name = "toolStripButton1";
+      this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
+      this.toolStripButton1.Text = "ConvertTraceButton";
+      this.toolStripButton1.Click += new System.EventHandler(this.ConvertTrace_Click);
       // 
       // MainWindow
       // 
@@ -380,6 +392,7 @@
     private BrightIdeasSoftware.OLVColumn m_WarningCountColumn;
     private System.Windows.Forms.ToolStripMenuItem m_AddUserTraceMarkMenuItem;
     private System.Windows.Forms.ToolStripMenuItem m_ShowWarningsMenuItem;
+    private System.Windows.Forms.ToolStripButton toolStripButton1;
   }
 }
 
