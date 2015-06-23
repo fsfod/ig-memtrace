@@ -712,21 +712,39 @@ static void MemTrace::HookCrt()
   // On Windows, dynamically hook the CRT allocation functions to route through memtrace.
 
   // Load minhook DLL
-  if (HMODULE minhook_module = LoadLibraryA("MinHook.x64.dll"))
+  MH_Initialize();
+  //HMODULE minhook_module = LoadLibraryA("MinHook.x64.dll"))
+  
+#if 0
+  HMODULE minhook_module = LoadLibraryA("MinHook.x64.dll")
+  if (!minhook_module)
   {
-    auto MH_Initialize_Func = (decltype(&MH_Initialize)) GetProcAddress(minhook_module, "MH_Initialize");
-    auto MH_CreateHook_Func = (decltype(&MH_CreateHook)) GetProcAddress(minhook_module, "MH_CreateHook");
-    auto MH_EnableHook_Func = (decltype(&MH_EnableHook)) GetProcAddress(minhook_module, "MH_EnableHook");
 
-    if (!MH_Initialize_Func || !MH_CreateHook_Func || !MH_EnableHook_Func || MH_OK != (*MH_Initialize_Func)())
-    {
+          // NOTE: minhook.x64.dll left mapped on purpose.
+  }
+  else
+  {
+      MemTracePrint("WARNING: Failed to load MinHook.x64.dll - CRT allocations will not be captured\n");
+      return;
+  }
+  
+  auto MH_Initialize_Func = (decltype(&MH_Initialize))GetProcAddress(minhook_module, "MH_Initialize");
+  auto MH_CreateHook_Func = (decltype(&MH_CreateHook))GetProcAddress(minhook_module, "MH_CreateHook");
+  auto MH_EnableHook_Func = (decltype(&MH_EnableHook))GetProcAddress(minhook_module, "MH_EnableHook");
+  
+  if (!MH_Initialize_Func || !MH_CreateHook_Func || !MH_EnableHook_Func || MH_OK != (*MH_Initialize_Func)())
+  {
       DebugBreak();
-    }
+  }
+#else
+  auto MH_Initialize_Func = &MH_Initialize;
+  auto MH_CreateHook_Func = &MH_CreateHook;
+  auto MH_EnableHook_Func = &MH_EnableHook;
+#endif
 
 #if !defined(_DEBUG)
 
 #if _MSC_VER == 1700
-
     const char* runtimeName = "msvcr110.dll";
 #elif _MSC_VER == 1800
     const char* runtimeName = "msvcr120.dll";
@@ -783,12 +801,6 @@ static void MemTrace::HookCrt()
     MemTracePrint("WARNING: CRT hooking in Debug builds not yet supported\n");
 #endif
 
-    // NOTE: minhook.x64.dll left mapped on purpose.
-  }
-  else
-  {
-    MemTracePrint("WARNING: Failed to load MinHook.x64.dll - CRT allocations will not be captured\n");
-  }
 #endif
 }
 
