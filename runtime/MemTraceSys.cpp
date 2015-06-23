@@ -163,7 +163,8 @@ MemTrace::FileHandle MemTrace::FileOpenForReadWrite(const char* fn)
 
 void MemTrace::FileWrite(FileHandle fh, const void* data, size_t size)
 {
-  ::WriteFile(fh, data, (DWORD) size, NULL, NULL);
+  DWORD written;
+  ::WriteFile(fh, data, (DWORD)size, &written, NULL);
 }
 
 void MemTrace::FileClose(FileHandle fh)
