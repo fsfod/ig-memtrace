@@ -168,9 +168,9 @@
       <Project>{de94b6df-8e75-4623-a12c-be2a1756a128}</Project>
       <Name>MemTraceWidgets</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MemTrace\MemTrace.csproj">
+    <ProjectReference Include="..\MemTrace\MemTraceDLL.csproj">
       <Project>{2e43cdc0-ac81-4172-85e7-4126eed64656}</Project>
-      <Name>MemTrace</Name>
+      <Name>MemTraceDLL</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

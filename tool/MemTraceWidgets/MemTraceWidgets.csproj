@@ -121,9 +121,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MemTrace\MemTrace.csproj">
+    <ProjectReference Include="..\MemTrace\MemTraceDLL.csproj">
       <Project>{2e43cdc0-ac81-4172-85e7-4126eed64656}</Project>
-      <Name>MemTrace</Name>
+      <Name>MemTraceDLL</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemTrace", "MemTrace\MemTrace.csproj", "{2E43CDC0-AC81-4172-85E7-4126EED64656}"
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemTraceDLL", "MemTrace\MemTraceDLL.csproj", "{2E43CDC0-AC81-4172-85E7-4126EED64656}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemTraceTool", "MemTraceTool\MemTraceTool.csproj", "{2FBF023A-ACDB-4526-AEBF-8C72FFC40E9A}"
 EndProject
